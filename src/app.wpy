@@ -1,0 +1,78 @@
+<style lang="scss" src="./styles/weui.scss"></style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/home/template',
+      'pages/home/home',
+      'pages/category/category'
+    ],
+    window: {
+      backgroundTextStyle: 'dark',
+      backgroundColor: '#F5F5F5',
+      navigationBarBackgroundColor: '#f3a18a',
+      navigationBarTitleText: '艾欧珠宝',
+      navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      color: '#666666',
+      selectedColor: '#f3a18a',
+      borderStyle: 'white',
+      backgroundColor: '#FAFAFA',
+      list: [
+        {
+          iconPath: 'images/tab/home.png',
+          selectedIconPath: 'images/tab/yellow/home-active.png',
+          pagePath: 'pages/home/template',
+          text: '首页'
+        },
+        {
+          iconPath: 'images/tab/order.png',
+          selectedIconPath: 'images/tab/yellow/order-active.png',
+          pagePath: 'pages/category/category',
+          text: '分类'
+        }
+        // {
+        //   iconPath: 'images/tab/cart.png',
+        //   selectedIconPath: 'images/tab/yellow/cart-active.png',
+        //   pagePath: 'pages/goods/cart',
+        //   text: '购物车'
+        // },
+        // {
+        //   iconPath: 'images/tab/user.png',
+        //   selectedIconPath: 'images/tab/yellow/user-active.png',
+        //   pagePath: 'pages/customer/index_template',
+        //   text: '我的'
+        // }
+      ]
+    }
+  }
+
+  // 全局页面可配置读取数据
+  globalData = {
+    auth: {}
+  }
+
+  constructor () {
+    super()
+    // 注册中间件
+    this.use('requestfix')
+    this.use('promisify')
+  }
+
+  onLaunch() {
+    // 获取第三方平台自定义的数据字段的同步接口
+    const ext = wepy.getExtConfigSync ? wepy.getExtConfigSync() : {}
+    console.info(ext)
+  }
+}
+</script>

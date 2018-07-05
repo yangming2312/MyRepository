@@ -1,0 +1,14 @@
+/*
+  轮播图片组件
+*/
+<template>
+  <swiper></swiper>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class SwiperBar extends wepy.component {
+
+  }
+</script>
